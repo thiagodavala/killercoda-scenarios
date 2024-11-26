@@ -1,1 +1,1 @@
-How to run Pod in Kubernetes environments
+O ojetivo do desafio é criar um Pod em ambiente kubernetes.
