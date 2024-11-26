@@ -1,13 +1,13 @@
 {
     "title": "Kubernetes Pod",
-    "description": "How to run Pod in Kubernetes environments",
+    "description": "Criando um Pod no Kubernetes",
     "details": {
       "intro": {
         "text": "intro.md"
       },
       "steps": [
         {
-          "title": "Create a Pod",
+          "title": "Criar um Pod",
           "text": "step1.md",
           "verify": "verify.sh"
         }
