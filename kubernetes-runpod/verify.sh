@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl get pod teste-pod -o json | jq .spec.containers[].image | grep nginx
+kubectl get pod teste-pod -o jsonpath='{.status.phase} {.spec.containers[0].image}' | grep -i "Running nginx"
