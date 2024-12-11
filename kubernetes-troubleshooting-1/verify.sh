@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl get pod teste-pod -o jsonpath='{.status.phase} {.spec.containers[0].image}' | grep -i "Running nginx"
+kubectl get pods -n capivara -o jsonpath='{.status.phase} {.spec.containers[0].image}' | grep -i "Running nginx"
