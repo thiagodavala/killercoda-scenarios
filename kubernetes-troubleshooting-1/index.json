@@ -1,0 +1,23 @@
+{
+    "title": "Kubernetes Pod",
+    "description": "Análise de Problemas em Deployments - 1",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Troubleshooting 1",
+          "text": "step1.md",
+          "background": "background.sh",
+          "verify": "verify.sh"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
