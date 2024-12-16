@@ -1,5 +1,4 @@
 #!/bin/bash
-
 kubectl create namespace capivara
 
 cat <<EOF > deployment.yaml
@@ -7,6 +6,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app2
+  namespace: capivara
   labels:
     app: app2
 spec:
@@ -27,7 +27,6 @@ spec:
           limits:
             memory: "64Mi"
             cpu: "250m"
-        restartPolicy: Always
 EOF
 
 kubectl apply -f deployment.yaml
