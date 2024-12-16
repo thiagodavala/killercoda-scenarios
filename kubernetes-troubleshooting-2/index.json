@@ -1,0 +1,23 @@
+{
+    "title": "Análise de Problemas - 2",
+    "description": "Análise de Problemas em Deployments - 2",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Troubleshooting 2",
+          "text": "step1.md",
+          "background": "background.sh",
+          "verify": "verify.sh"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
