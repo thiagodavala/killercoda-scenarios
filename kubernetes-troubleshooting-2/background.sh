@@ -21,16 +21,8 @@ spec:
     spec:
       containers:
       - name: app2
-        image: busybox
-        command: ["/bin/sh", "-c"]
-        args:
-          - echo "The REQUIRED_ENV is: \$REQUIRED_ENV";
-            if [ -z "\$REQUIRED_ENV" ]; then
-              echo "Error: REQUIRED_ENV is not set!";
-              exit 1;
-            fi;
-            echo "Variable is set!";
-        env: # Nenhuma variável de ambiente é configurada aqui.
+        image: thiagoogeremias86/olamundo:1
+        env:
         resources:
           limits:
             memory: "64Mi"
