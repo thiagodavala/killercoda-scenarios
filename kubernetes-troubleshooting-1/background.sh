@@ -6,36 +6,25 @@ cat <<EOF > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app2
+  name: app1-deployment
+  namespace: capivara
   labels:
-    app: app2
+    app: app1
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: app2
+      app: app1
   template:
     metadata:
       labels:
-        app: app2
+        app: app1
     spec:
       containers:
-      - name: app2-container
-        image: busybox
-        command: ["/bin/sh", "-c"]
-        args:
-          - echo "The REQUIRED_ENV is: $REQUIRED_ENV";
-            if [ -z "$REQUIRED_ENV" ]; then
-              echo "Error: REQUIRED_ENV is not set!";
-              exit 1;
-            fi;
-            echo "Variable is set!";
-        env:
-        resources:
-          limits:
-            memory: "64Mi"
-            cpu: "250m"
-        restartPolicy: Always
+      - name: app1
+        image: nginxfake:latest
+        ports:
+        - containerPort: 80
 EOF
 
 kubectl apply -f deployment.yaml
