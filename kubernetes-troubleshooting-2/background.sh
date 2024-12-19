@@ -1,32 +1,19 @@
 #!/bin/bash
 kubectl create namespace capivara
 
-cat <<EOF > deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
+cat <<EOF > job.yaml
+apiVersion: batch/v1
+kind: Job
 metadata:
-  name: app2
+  name: paco
   namespace: capivara
-  labels:
-    app: app2
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app2
   template:
-    metadata:
-      labels:
-        app: app2
     spec:
       containers:
-      - name: app2
+      - name: paco
         image: thiagoogeremias86/olamundo:1
-        env:
-        resources:
-          limits:
-            memory: "64Mi"
-            cpu: "250m"
+      restartPolicy: onFailure
 EOF
 
-kubectl apply -f deployment.yaml
+kubectl apply -f job.yaml
