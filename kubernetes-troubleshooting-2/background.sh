@@ -13,7 +13,7 @@ spec:
       containers:
       - name: paco
         image: thiagoogeremias86/olamundo:1
-      restartPolicy: onFailure
+      restartPolicy: OnFailure
 EOF
 
 kubectl apply -f job.yaml
