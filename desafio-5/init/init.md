@@ -1,0 +1,1 @@
+Uma empresa de e-commerce está com problema na externalização de um novo serviço
