@@ -2,9 +2,6 @@
     "title": "Desafio 5",
     "description": "Troubleshooting",
     "details": {
-      "finish": {
-        "text": "finish.md"
-      },
       "intro": {
         "text": "init/init.md",
         "courseData": "init/background.sh",
@@ -14,10 +11,12 @@
         {
           "title": "Desafio 5",
           "text": "step1.md",
-          "background": "background.sh",
           "verify": "verify.sh"
         }
       ],
+      "finish": {
+        "text": "finish.md"
+      },
       "assets": {
         "host01": [
           {"file": "init.sh", "target": "/ks", "chmod": "+x"},
