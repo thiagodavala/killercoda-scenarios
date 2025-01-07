@@ -1,5 +1,5 @@
 {
-    "title": "Análise de Problemas - 1",
+    "title": "Desafio 2",
     "description": "Análise de Problemas em Deployments - 1",
     "details": {
       "intro": {
@@ -7,7 +7,7 @@
       },
       "steps": [
         {
-          "title": "Troubleshooting 1",
+          "title": "Desafio 2",
           "text": "step1.md",
           "background": "background.sh",
           "verify": "verify.sh"

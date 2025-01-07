@@ -1,0 +1,1 @@
+Uma loja online lançou nos ultimos dias um novo deployment, percebemos que a aplicação fica constantemente indisponível, nos ajude a encontrar o problema.

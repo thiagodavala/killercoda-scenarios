@@ -1,14 +1,15 @@
 {
-    "title": "Kubernetes Pod",
-    "description": "Criando um Pod no Kubernetes",
+    "title": "Desafio 3",
+    "description": "Análise de Problemas em Deployments",
     "details": {
       "intro": {
         "text": "intro.md"
       },
       "steps": [
         {
-          "title": "Criar um Pod",
+          "title": "Desafio 3",
           "text": "step1.md",
+          "background": "background.sh",
           "verify": "verify.sh"
         }
       ],
