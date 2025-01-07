@@ -180,13 +180,6 @@ spec:
             name: brasil
             port:
               number: 80
-      - path: /argentina
-        pathType: Prefix
-        backend:
-          service:
-            name: argentina
-            port:
-              number: 80
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -202,7 +195,7 @@ spec:
   - host: "world.universe.mine"
     http:
       paths:
-      - path: /arg
+      - path: /argentina
         pathType: Prefix
         backend:
           service:
