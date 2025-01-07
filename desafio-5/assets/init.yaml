@@ -161,7 +161,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: world-1
+  name: world
   namespace: world
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
@@ -180,21 +180,6 @@ spec:
             name: brasil
             port:
               number: 80
-              ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: world-2
-  namespace: world
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/use-regex: "true"
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: "world.universe.mine"
-    http:
-      paths:
       - path: /argentina
         pathType: Prefix
         backend:
