@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl get pods -n capivara | grep Running
+kubectl get pods -n capivara | grep Completed
