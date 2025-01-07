@@ -170,7 +170,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
+  - host: "world.universe.mine"
+    http:
       paths:
       - path: /brasil
         pathType: Prefix
