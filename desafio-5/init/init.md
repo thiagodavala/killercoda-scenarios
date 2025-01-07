@@ -1,5 +1,1 @@
-Uma empresa de e-commerce está com problema na externalização de um novo serviço, para acessá-lo você pode usar o comando a seguir:
-
-```
-curl world.universe.mine/brasil
-```
+Estamos com problema na externalização de um determinado serviço, no ajude a resolver o problema!

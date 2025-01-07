@@ -10,6 +10,14 @@
         "courseData": "init/background.sh",
         "code": "init/foreground.sh"
       },
+      "steps": [
+        {
+          "title": "Desafio 5",
+          "text": "step1.md",
+          "background": "background.sh",
+          "verify": "verify.sh"
+        }
+      ],
       "assets": {
         "host01": [
           {"file": "init.sh", "target": "/ks", "chmod": "+x"},
