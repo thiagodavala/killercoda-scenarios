@@ -1,3 +1,192 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: world
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+  namespace: world
+data:
+  nginx.conf: |
+    user nginx;
+    worker_processes  3;
+    error_log  /var/log/nginx/error.log;
+    events {
+      worker_connections  10240;
+    }
+    http {
+      server {
+          listen       80;
+          server_name  _;
+          root   /usr/share/nginx/html;
+          index  index.html index.htm;
+
+          location /brasil {
+              alias /usr/share/nginx/html/;
+              index  index.html index.html;
+          }
+          location /argentina {
+              alias /usr/share/nginx/html/;
+              index  index.html index.html;
+          }
+          location / {
+              root   /usr/share/nginx/html;
+              index  index.html index.htm;
+          }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: brasil
+  name: brasil
+  namespace: world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: brasil
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: brasil
+    spec:
+      volumes:
+        - name: html
+          emptyDir: {}
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+      initContainers:
+        - name: init-container
+          image: busybox:1.28
+          volumeMounts:
+            - name: html
+              mountPath: /html
+          command: ["sh", "-c", "echo 'hello, you reached Brasil' > /html/index.html"]
+      containers:
+        - name: c
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+            - mountPath: /etc/nginx
+              readOnly: true
+              name: nginx-conf
+          image: nginx:1.21.5-alpine
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: argentina
+  name: argentina
+  namespace: world
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: argentina
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: argentina
+    spec:
+      volumes:
+        - name: html
+          emptyDir: {}
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+      initContainers:
+        - name: init-container
+          image: busybox:1.28
+          volumeMounts:
+            - name: html
+              mountPath: /html
+          command: ["sh", "-c", "echo 'hello, you reached Argentina' > /html/index.html"]
+      containers:
+        - name: c
+          volumeMounts:
+            - name: html
+              mountPath: /usr/share/nginx/html
+            - mountPath: /etc/nginx
+              readOnly: true
+              name: nginx-conf
+          image: nginx:1.21.5-alpine
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: brasil
+  name: brasil
+  namespace: world
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: brasil
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: argentina
+  name: argentina
+  namespace: world
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: argentina
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: world
+  namespace: world
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /brasil
+        pathType: Prefix
+        backend:
+          service:
+            name: brasil
+            port:
+              number: 80
+      - path: /argentina
+        pathType: Prefix
+        backend:
+          service:
+            name: argentina
+            port:
+              number: 80
+---
 # NGINX INGRESS https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/baremetal/deploy.yaml
 apiVersion: v1
 kind: Namespace
