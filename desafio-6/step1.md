@@ -5,5 +5,5 @@ A cada 10 requisições na página do sistema, um percentual significativo das r
 Exemplo:
 
 ```bash
-curl world.universe.mine/
+curl xpto.empresa.com/
 ```

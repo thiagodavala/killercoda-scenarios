@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: world
+  name: xpto
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: nginx-conf
-  namespace: world
+  namespace: xpto
 data:
   nginx.conf: |
     user nginx;
@@ -34,19 +34,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: brasil
-  name: brasil
-  namespace: world
+    app: xpto
+  name: xpto
+  namespace: xpto
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: brasil
+      app: xpto
   strategy: {}
   template:
     metadata:
       labels:
-        app: brasil
+        app: xpto
     spec:
       volumes:
         - name: html
@@ -63,51 +63,7 @@ spec:
           volumeMounts:
             - name: html
               mountPath: /html
-          command: ["sh", "-c", "echo 'hello, you reached Brasil' > /html/index.html"]
-      containers:
-        - name: c
-          volumeMounts:
-            - name: html
-              mountPath: /usr/share/nginx/html
-            - mountPath: /etc/nginx
-              readOnly: true
-              name: nginx-conf
-          image: nginx:1.21.5-alpine
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: argentina
-  name: argentina
-  namespace: world
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: argentina
-  strategy: {}
-  template:
-    metadata:
-      labels:
-        app: argentina
-    spec:
-      volumes:
-        - name: html
-          emptyDir: {}
-        - name: nginx-conf
-          configMap:
-            name: nginx-conf
-            items:
-              - key: nginx.conf
-                path: nginx.conf
-      initContainers:
-        - name: init-container
-          image: busybox:1.28
-          volumeMounts:
-            - name: html
-              mountPath: /html
-          command: ["sh", "-c", "echo 'hello, you reached Argentina' > /html/index.html"]
+          command: ["sh", "-c", "echo 'XPTO Home Page!' > /html/index.html"]
       containers:
         - name: c
           volumeMounts:
@@ -123,38 +79,22 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: brasil
-  name: brasil
-  namespace: world
+    app: xpto
+  name: xpto
+  namespace: xpto
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: brasil
----
-apiVersion: v1
-kind: Service
-metadata:
-  creationTimestamp: null
-  labels:
-    app: argentina
-  name: argentina
-  namespace: world
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    app: argentina
+    app: xpto
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: world
-  namespace: world
+  name: xpto
+  namespace: xpto
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -162,14 +102,14 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "world.universe.mine"
+  - host: "xpto.empresa.com"
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: brasil
+            name: xpto
             port:
               number: 80
 ---
