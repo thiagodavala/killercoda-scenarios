@@ -1,1 +1,0 @@
-A empresa XPTO está tendo problemas de instabilidade ao acessar o seu site, nos ajude a encontrar o problema

@@ -1,14 +1,3 @@
 #!/bin/bash
-
-# URL a ser testada
-URL="world.universe.mine/argentina"
-
-# Realiza a solicitação e captura o resultado
-RESPONSE=$(curl -s "$URL")
-
-# Verifica o conteúdo da resposta
-if [ "$RESPONSE" == "hello, you reached Argentina" ]; then
-  exit 0
-else
-  exit 1
-fi
+sleep 10s
+kubectl get pods -l app=sales -o jsonpath='{.items[0].status.containerStatuses[0].restartCount}' -n store-dev | grep -q '^[1-9]' && exit 1 || exit 0

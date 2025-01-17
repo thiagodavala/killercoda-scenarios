@@ -1,9 +1,12 @@
-## Problema
+## Orientações
 
-A cada 10 requisições na página do sistema, um percentual significativo das requisições não funciona corretamente
+Aguarde uns minutos até o ambiente ser provisionado.
 
-Exemplo:
 
-```bash
-curl xpto.empresa.com/
+Um deployment foi lançado no namespace indicado, ele está tendo alguns restarts constantes, resolva o problema sem destruir o deployment.
+
+## Ambiente
+
+```
+namespace: xpto
 ```

@@ -1,6 +1,6 @@
 ## Orientações
 
-A aplicação World possui uma url espeífica por país:
+A aplicação World possui uma url específica por país:
 
 Exemplo:
 

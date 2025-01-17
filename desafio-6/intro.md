@@ -1,0 +1,1 @@
+Lançamos um deployment no sistema, porém ele fica reinicializando com frequência, nos ajude a encontrar o problema e faça a correção.

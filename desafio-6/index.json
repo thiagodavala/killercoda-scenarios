@@ -1,29 +1,20 @@
 {
-    "title": "Desafio 6",
-    "description": "Troubleshooting",
+    "title": "Desafio 4",
+    "description": "Análise de Problemas em Deployments",
     "details": {
       "intro": {
-        "text": "init/init.md",
-        "courseData": "init/background.sh",
-        "code": "init/foreground.sh"
+        "text": "intro.md"
       },
       "steps": [
         {
-          "title": "Desafio 5",
+          "title": "Desafio 4",
           "text": "step1.md",
+          "background": "background.sh",
           "verify": "verify.sh"
         }
       ],
       "finish": {
         "text": "finish.md"
-      },
-      "assets": {
-        "host01": [
-          {"file": "init.sh", "target": "/ks", "chmod": "+x"},
-          {"file": "k8s.sh", "target": "/ks", "chmod": "+x"},
-          {"file": "wait-init.sh", "target": "/ks", "chmod": "+x"},
-          {"file": "init.yaml", "target": "/ks", "chmod": "+x"}
-        ]
       }
     },
     "backend": {
