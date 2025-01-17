@@ -1,5 +1,5 @@
 #!/bin/bash
-kubectl create namespace store-dev
+kubectl create namespace xpto
 
 cat <<EOF > configmap.yaml
 apiVersion: v1
