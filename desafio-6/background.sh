@@ -24,7 +24,7 @@ data:
     }
 EOF
 
-cat <<EOF > configmap.yaml
+cat <<EOF > deploy.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,3 +63,4 @@ spec:
 EOF
 
 kubectl apply -f configmap.yaml
+kubectl apply -f deploy.yaml
