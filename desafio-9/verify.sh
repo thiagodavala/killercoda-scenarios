@@ -1,2 +1,2 @@
 #!/bin/bash
-kubectl get pod -l app=rbac-initcontainer | grep -v Running && exit 1 || exit 0
+kubectl get pods -l app=rbac-initcontainer --no-headers | awk '{if ($2 != "Running") {print "Pod " $1 " não está em Running. Status: " $2; exit 1}}' || exit 0
