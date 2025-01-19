@@ -1,0 +1,1 @@
+Uma aplicação foi implantada no cluster, mas os usuários não conseguem acessá-la.
