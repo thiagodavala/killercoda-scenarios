@@ -47,7 +47,7 @@ spec:
       serviceAccountName: limited-sa
       initContainers:
         - name: check-permission
-          image: busybox
+          image: bitnami/kubectl:latest
           command: ["sh", "-c", "kubectl get pods --namespace=default"]
       containers:
         - name: main-container
