@@ -1,0 +1,1 @@
+Resolva o Problema do acesso ao armazenamento.
