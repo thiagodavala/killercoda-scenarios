@@ -14,7 +14,7 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["pods"]
-    verbs: []
+    verbs: ["delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
