@@ -21,13 +21,13 @@ spec:
         command:
         - "sh"
         - "-c"
-        - "apk add --no-cache stress-ng && stress-ng --cpu 2 --vm 2 --vm-bytes 128M --timeout 600s"
+        - "apk add --no-cache stress-ng && stress-ng --cpu 4 --vm 4 --vm-bytes 256M --timeout 600s"
         resources:
           limits:
-            memory: "64Mi"
+            memory: "32Mi"
             cpu: "250m"
           requests:
-            memory: "64Mi"
+            memory: "32Mi"
             cpu: "250m"
 EOF
 
