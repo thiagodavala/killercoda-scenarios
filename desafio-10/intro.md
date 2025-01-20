@@ -1,0 +1,1 @@
+Criamos uma aplicação para realizar um stress test, porém ela não está executando corretamente.
