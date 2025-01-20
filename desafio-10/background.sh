@@ -24,8 +24,8 @@ spec:
         - "apk add --no-cache stress-ng && stress-ng --cpu 2 --vm 2 --vm-bytes 128M --timeout 600s"
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "500m"
+            memory: "64Mi"
+            cpu: "250m"
           requests:
             memory: "64Mi"
             cpu: "250m"
