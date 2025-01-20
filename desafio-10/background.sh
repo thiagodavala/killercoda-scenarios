@@ -24,11 +24,11 @@ spec:
         - "apk add --no-cache stress-ng && stress-ng --cpu 4 --vm 4 --vm-bytes 256M --timeout 600s"
         resources:
           limits:
-            memory: "32Mi"
-            cpu: "250m"
+            memory: "10Mi"
+            cpu: "100m"
           requests:
-            memory: "32Mi"
-            cpu: "250m"
+            memory: "10Mi"
+            cpu: "100m"
 EOF
 
 kubectl apply -f deploy.yaml
