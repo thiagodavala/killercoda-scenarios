@@ -19,15 +19,6 @@ Tarefa:
 Crie um Secret para armazenar informações sensíveis como credenciais de banco de dados.
 Crie um ConfigMap para armazenar configurações não sensíveis.
 Monte os Secrets e ConfigMaps como variáveis de ambiente ou volumes em um pod.
-5. Política de Rede e Isolation (Network Policies)
-Objetivo: Criar políticas de rede para isolar pods entre namespaces e controlar a comunicação entre eles.
-Tarefa:
-Crie dois namespaces (ex: frontend e backend).
-Crie pods dentro desses namespaces e configure uma política de rede para bloquear o tráfego entre eles.
-Teste o isolamento de rede entre os pods.
-6. Rollout de Atualizações e Rollbacks de Deployments
-Objetivo: Criar um deployment com várias versões e realizar atualizações, monitorando o processo de rollout. Simular um rollback em caso de falha.
-Tarefa:
 
 
 

@@ -1,0 +1,1 @@
+Estamos com problema comunicação entre nossa aplicação frontend e backend, nos ajude a encontrar o problema!
