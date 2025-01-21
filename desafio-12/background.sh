@@ -7,8 +7,8 @@ cat <<EOF > backend.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api
-  namespace: backend
+  name: api-deployment
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -20,14 +20,40 @@ spec:
         app: api
     spec:
       containers:
-      - name: json-server
-        image: typicode/json-server:latest
-        args: ["--watch", "/data/db.json"]
+      - name: nginx
+        image: nginx:latest
         ports:
         - containerPort: 80
-        env:
-        - name: NODE_ENV
-          value: "production"
+        volumeMounts:
+        - name: json-volume
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: json-volume
+        configMap:
+          name: api-configmap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-configmap
+  namespace: default
+data:
+  index.html: |
+    {
+      "message": "OK",
+      "status": 200
+    }
+  default.conf: |
+    server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+            root /usr/share/nginx/html;
+            index index.html;
+            default_type application/json;
+        }
+    }
 ---
 apiVersion: v1
 kind: Service
@@ -36,7 +62,7 @@ metadata:
   namespace: backend
 spec:
   selector:
-    app: backend
+    app: api
   ports:
   - protocol: TCP
     port: 80
@@ -49,7 +75,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web-deployment
-  namespace: frontend
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -60,52 +86,48 @@ spec:
       labels:
         app: web
     spec:
+      volumes:
+      - name: shared-volume
+        emptyDir: {}
       containers:
       - name: nginx
         image: nginx:latest
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: html-volume
+        - name: shared-volume
           mountPath: /usr/share/nginx/html
-      volumes:
-      - name: html-volume
-        configMap:
-          name: web-configmap
+      - name: busybox
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          while true; do
+            if curl -s http://api-service.backend.svc.cluster.local | grep -q "OK"; then
+              echo "<html><body><h1>Connection Successful</h1><p>Data from backend:</p><pre>$(curl -s http://nginx-json-service.other-namespace.svc.cluster.local)</pre></body></html>" > /shared/index.html
+            else
+              echo "<html><body><h1>Connection Failed</h1></body></html>" > /shared/index.html
+            fi
+            sleep 10;
+          done
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /shared
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: Service
 metadata:
-  name: web-configmap
+  name: web-service
   namespace: frontend
-data:
-  index.html: |
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Frontend</title>
-      <script>
-        async function fetchBackendData() {
-          try {
-            const response = await fetch("http://backend-service.backend.svc.cluster.local/posts");
-            const data = await response.json();
-            const container = document.getElementById("data");
-            container.innerHTML = JSON.stringify(data, null, 2);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-            document.getElementById("data").innerText = "Error fetching data from backend.";
-          }
-        }
-        window.onload = fetchBackendData;
-      </script>
-    </head>
-    <body>
-      <h1>Frontend Consuming Backend</h1>
-      <pre id="data" style="background: #f4f4f4; padding: 10px; border-radius: 5px;"></pre>
-    </body>
-    </html>
+spec:
+  selector:
+    app: web
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
 EOF
 
 kubectl apply -f backend.yaml
