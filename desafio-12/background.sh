@@ -104,7 +104,7 @@ spec:
         - -c
         - |
           while true; do
-            if curl -s http://api-service.backend.svc.cluster.local | grep -q "OK"; then
+            if curl -s http://api-service.backend.svc.cluster.local | grep "OK"; then
               echo "<html><body><h1>Connection Successful</h1><p>Data from backend:</p><pre>$(curl -s http://nginx-json-service.other-namespace.svc.cluster.local)</pre></body></html>" > /shared/index.html
             else
               echo "<html><body><h1>Connection Failed</h1></body></html>" > /shared/index.html
@@ -132,3 +132,8 @@ EOF
 
 kubectl apply -f backend.yaml
 kubectl apply -f frontend.yaml
+
+sleep 10s
+
+clusterIP=$(kubectl get svc web-service -n frontend -o jsonpath='{.spec.clusterIP}')
+echo $clusterIP web.demo.site >> /etc/hosts
