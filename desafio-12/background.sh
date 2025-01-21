@@ -97,15 +97,15 @@ spec:
         volumeMounts:
         - name: shared-volume
           mountPath: /usr/share/nginx/html
-      - name: busybox
-        image: busybox:latest
+      - name: check-connection
+        image: curlimages/curl:latest
         command:
         - sh
         - -c
         - |
           while true; do
             if curl -s http://api-service.backend.svc.cluster.local | grep "OK"; then
-              echo "<html><body><h1>Connection Successful</h1><p>Data from backend:</p><pre>$(curl -s http://nginx-json-service.other-namespace.svc.cluster.local)</pre></body></html>" > /shared/index.html
+              echo "Connection Successful" > /shared/index.html
             else
               echo "<html><body><h1>Connection Failed</h1></body></html>" > /shared/index.html
             fi
