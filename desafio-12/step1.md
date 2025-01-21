@@ -1,6 +1,6 @@
 # Backend
 
-Aguardar 1 minutos o jogo inicializar...
+Aguardar 1 minuto o jogo inicializar...
 
 ```
 namespace: backend

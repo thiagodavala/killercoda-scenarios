@@ -107,7 +107,7 @@ spec:
             if curl -s http://api-service.backend.svc.cluster.local | grep "OK"; then
               echo "Connection Successful" > /shared/index.html
             else
-              echo "<html><body><h1>Connection Failed</h1></body></html>" > /shared/index.html
+              echo "Connection Failed" > /shared/index.html
             fi
             sleep 10;
           done
@@ -130,8 +130,25 @@ spec:
   type: LoadBalancer
 EOF
 
+
+cat <<EOF > policy.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-frontend-to-backend
+  namespace: backend
+spec:
+  podSelector: {}
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: frontend2
+EOF
+
 kubectl apply -f backend.yaml
 kubectl apply -f frontend.yaml
+kubectl apply -f policy.yaml
 
 sleep 10s
 
