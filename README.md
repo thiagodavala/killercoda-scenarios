@@ -1,12 +1,6 @@
 # TODO
 
 
-1. Gerenciamento de Recursos e Limitações (CPU e Memória)
-Objetivo: Criar um deployment com pods que possuam recursos de CPU e memória limitados. Após isso, forçar a execução de múltiplos pods até que o cluster atinja a capacidade máxima, causando um "Out of Memory" (OOM) ou "CPU throttling".
-Tarefa:
-Crie um deployment com recursos limitados (limite de CPU e memória).
-Observe o comportamento de pod quando os recursos forem atingidos.
-Simule o escalonamento e o "throttling" de CPU.
 2. Configuração de Auto-Scaling Horizontal de Pods (HPA)
 Objetivo: Criar um Horizontal Pod Autoscaler (HPA) que ajuste automaticamente o número de réplicas do seu deployment com base na carga de CPU.
 Tarefa:
@@ -34,10 +28,6 @@ Teste o isolamento de rede entre os pods.
 6. Rollout de Atualizações e Rollbacks de Deployments
 Objetivo: Criar um deployment com várias versões e realizar atualizações, monitorando o processo de rollout. Simular um rollback em caso de falha.
 Tarefa:
-Crie um deployment com uma aplicação simples (ex: nginx ou nginx com uma versão personalizada).
-Realize uma atualização de versão com o kubectl rollout.
-Se a nova versão falhar, realize um rollback para a versão anterior usando o comando kubectl rollout undo.
-Esses exercícios abordam diferentes aspectos do Kubernetes, desde o gerenciamento de recursos até a configuração de políticas de rede e atualização de aplicações. Eles são desafiadores e podem ser simulados no KillerKoda para praticar na resolução de problemas em um ambiente Kubernetes realista.
 
 
 

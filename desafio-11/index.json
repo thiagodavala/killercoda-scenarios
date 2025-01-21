@@ -1,0 +1,23 @@
+{
+    "title": "Desafio 11",
+    "description": "Análise de Problemas em Deployments",
+    "details": {
+      "intro": {
+        "text": "intro.md"
+      },
+      "steps": [
+        {
+          "title": "Desafio 11",
+          "text": "step1.md",
+          "background": "background.sh",
+          "verify": "verify.sh"
+        }
+      ],
+      "finish": {
+        "text": "finish.md"
+      }
+    },
+    "backend": {
+      "imageid": "kubernetes-kubeadm-1node"
+    }
+  }
